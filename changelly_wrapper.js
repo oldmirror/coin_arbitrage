@@ -1,0 +1,3 @@
+var api_key = '6bb0dd0a58944f0cb14e12b3647007de';
+var secret: '901ba3302679937e121d7a6901c6d8980853414dd7fc83ff6932fdecf9ec9dc4'
+
