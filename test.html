@@ -1,20 +1,18 @@
 <html>
 <head>
-<script src="./calc_perm.js"></script>
+<script src="./jquery-3.2.1.min.js"></script>
 <script src="./tool.js"></script>
+<script src="./calc_perm.js"></script>
+<script src="./apis/bithumb.js"></script>
 </head>
 <body>
 test
+<div id='content'></div>
 <script language='javascript'>
-
-list = new Array();
-
-list.push(1);
-list.push(2);
-list.push(3);
-//calc_perm_begin(list);
-
-
+initialize();
+readData();
+			calc_perm_begin(markerTable);
 </script>
+<input value='get' type='button' onClick='javascript:calc_perm_begin(markerTable);'/>
 </body>
 </html>
