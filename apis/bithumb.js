@@ -1,4 +1,4 @@
-var endpoint = 'https://api.bithumb.com/public/ticker/ALL';
+var endpointbt = 'https://api.bithumb.com/public/ticker/ALL';
 function initialize() {
 
 	exchangeList['Bithumb'] = new Object();
@@ -11,7 +11,7 @@ function readData() {
 
 	// read JSON array
 	
-	$.get(endpoint, function(data, status){ 
+	$.get(endpointbt, function(data, status){ 
 		if (status != 'success'|| data === undefined) return;
 		// jsonData = JSON.parse(data);
 		try {
@@ -46,11 +46,4 @@ function readData() {
 		}
 	
 	});
-	//$.ajax({
-	//  url: endpoint,
-	//  data: data,
-	//  success: function() {
-
-	//  dataType: dataType
-	//});
 }

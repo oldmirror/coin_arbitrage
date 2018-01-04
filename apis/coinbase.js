@@ -1,17 +1,19 @@
 var endpoint = 'https://api.coinbase.com/v2/prices/BTC-USD/buy';
-function initialize() {         
+function initializeCB() {         
     
     exchangeList['Coinbase'] = new Object();
     exchangeList['Coinbase']['USD'] = new Object();
     exchangeList['Coinbase']['USD'].fee = 0.6;
     exchangeList['Coinbase']['USD'].records = {};
 } 
+var l = ['BTC', 'ETH', 'LTC', 'BCH'];
 
-function readDataCoinbase() { 
+function readDataCB() { 
 // example:
 //{"data":{"base":"BTC","currency":"USD","amount":"15350.36"}}
 
-	$.get(endpoint, function(data, status){ 
+	for (var coin in l) {
+	$.get('https://api.coinbase.com/v2/prices/' + l[coin] + '-USD/buy', function(data, status){ 
 		if (status != 'success'|| data === undefined) return;
 
 		try {
@@ -33,13 +35,14 @@ function readDataCoinbase() {
 
 			}
 			
-			row[k].price = data.amout;
+			row[k].price = data.data.amount;
 				
 		} catch(err) {
 			// display error message
 		}
 	
 	});
+	}
 
 }
 

@@ -2,7 +2,7 @@
 var exchangeList = {};
 var row = {};
 var markerTable = new Array();
-
+/*
 // Read from currency exchange
 exchangeList['WON-DOLLOR'] = new Object();
 exchangeList['WON-DOLLOR'].currency = 'USD';
@@ -23,31 +23,32 @@ markerTable.push({
 stat: 0,
 elem: row['KRW']
 });
+*/
 
 // Read data from Coinbase
-var row = {};
-
-exchangeList['Coinbase'] = new Object();
-exchangeList['Coinbase'].endpoint ='';
-
-exchangeList['Coinbase']['USD'] = new Object();
-exchangeList['Coinbase']['USD'].fee = 0.6;
-exchangeList['Coinbase']['USD'].records = row;
-
-row['BTC'] = {
-	tag: 'BTC',
-	index: 1, // increment 
-	price: 14330.24,
-	unit :'USD',
-	reverse: true,
-	refs: []
-	
-};
-
-markerTable.push({
-stat: 0,
-elem: row['BTC']
-});
+//var row = {};
+//
+//exchangeList['Coinbase'] = new Object();
+//exchangeList['Coinbase'].endpoint ='';
+//
+//exchangeList['Coinbase']['USD'] = new Object();
+//exchangeList['Coinbase']['USD'].fee = 0.6;
+//exchangeList['Coinbase']['USD'].records = row;
+//
+//row['BTC'] = {
+//	tag: 'BTC',
+//	index: 1, // increment 
+//	price: 14330.24,
+//	unit :'USD',
+//	reverse: true,
+//	refs: []
+//	
+//};
+//
+//markerTable.push({
+//stat: 0,
+//elem: row['BTC']
+//});
 
 
 // Read data from Bithumb

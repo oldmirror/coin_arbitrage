@@ -5,29 +5,53 @@ function calc_perm_begin(input) {
 	calc_perm();
 }
 
+resultList = new Array();
+
+function printResult(n) {
+	// sort the resultList by price
+	resultList.sort(function(a, b) {
+		return b.val - a.val;
+	});
+		
+	var contentDiv = document.getElementById('content');
+
+	pStr = '';
+	for (var i =0; i<n; i++) {
+		pStr += '<p>';
+		pStr += resultList[i].str +  ' ' + resultList[i].val;
+		pStr += '</p>';
+	}
+	contentDiv.innerHTML += pStr;
+	
+}
+
 var f = function condition(o) {
 	return true;
 }
 
 function calc_perm() {
 
+	if (result.length > 5) return; //TODO
+
 	// All length permutation. Valid if it's draws cycle. Once cycle is found, terminate the search.
 	if ((result.length > 0) && result[result.length-1].end == result[0].start) { 
 		if (result.length >= 3) { // only consider longer than 3 
 			// deep clone the result and store 
 			//resultArray.push(JSON.stringify(result));
-			var contentDiv = document.getElementById('content');
-
-			var pStr = '<p>';	
+	
+			var e = new Object();
+			var listStr= '';
 			var price = 1;
 			for (var i = 0; i < result.length; i++) {
 				price /= result[i].price;
-				pStr += result[i].start + '(' + 1/result[i].price + ')' + ' -> ';
+				listStr += result[i].start + '(' + 1/result[i].price + ')' + ' -> ';
 			}
 			
-			pStr += result[i-1].end;
-			pStr += ' = ' + price + '</p>';
-			contentDiv.innerHTML += pStr;
+			listStr += result[i-1].end;
+			e.str = listStr;
+			e.val = price;
+
+			resultList.push(e);
 		}
 		return;
 	}

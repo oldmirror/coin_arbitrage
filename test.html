@@ -4,15 +4,20 @@
 <script src="./tool.js"></script>
 <script src="./calc_perm.js"></script>
 <script src="./apis/bithumb.js"></script>
+<script src="./apis/coinbase.js"></script>
+<script src="./apis/poloniex.js"></script>
 </head>
 <body>
 test
 <div id='content'></div>
 <script language='javascript'>
 initialize();
+initializeCB();
+initializePN();
 readData();
-			calc_perm_begin(markerTable);
+readDataCB();
+readDataPN();
 </script>
-<input value='get' type='button' onClick='javascript:calc_perm_begin(markerTable);'/>
+<input value='get' type='button' onClick='javascript:calc_perm_begin(markerTable); printResult(resultList.length);'/>
 </body>
 </html>
