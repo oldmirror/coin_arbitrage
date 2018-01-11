@@ -2,28 +2,26 @@
 var exchangeList = {};
 var row = {};
 var markerTable = new Array();
-/*
 // Read from currency exchange
 exchangeList['WON-DOLLOR'] = new Object();
 exchangeList['WON-DOLLOR'].currency = 'USD';
 exchangeList['WON-DOLLOR'].fee= 0.6;
 exchangeList['WON-DOLLOR'].records = row;
 
-row['KRW'] = 
-{
-	tag: 'KRW',
-	index: 0,
-	price: 0.00094,
-	unit: 'USD',
-	reverse: true,
-	refs:[]
-};
-
-markerTable.push({
-stat: 0,
-elem: row['KRW']
-});
-*/
+//row['KRW'] = 
+//{
+//	tag: 'KRW',
+//	index: 0,
+//	price: 0.00094,
+//	unit: 'USD',
+//	reverse: true,
+//	refs:[]
+//};
+//
+//markerTable.push({
+//stat: 0,
+//elem: row['KRW']
+//});
 
 // Read data from Coinbase
 //var row = {};

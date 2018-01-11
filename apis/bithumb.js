@@ -26,6 +26,7 @@ function readData() {
 
 						row[k] = 
 						{
+							exchange: 'bithumb',
 							tag: k,
 							unit: 'KRW',
 							reverse: true,

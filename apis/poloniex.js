@@ -29,6 +29,7 @@ function readDataPN() {
 					row[dest] = 
 					{
 						tag: dest,
+						exchange: 'poloniex',
 						unit: cur,
 						reverse: false,
 						refs:[]

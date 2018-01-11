@@ -9,15 +9,108 @@
 </head>
 <body>
 test
+
+<div>
+<h1>Currencies that you have:</h1>
+<p name='startCur'><input type='hidden' value="USD">USD: <input name='amount' type='text' value='0'/><input type='checkbox'></p>
+<p name='startCur'><input type='hidden' value="KRW">KRW: <input name='amount' type='text' value='0'/><input type='checkbox'></p>
+<h1>Exchanges:</h1>
+<p>WON-DOLLAR<input type='checkbox' id='WON-DOLLAR'> amount: <input type='text' value='0' id='wonToDollar'/></p>
+<p>USA</p>
+<p name="ex">Coinbase<input type='checkbox'><input type='hidden' value="Coinbase"></p>
+<p name="ex">Poloniex<input type='checkbox'><input type='hidden' value="Poloniex"></p>
+<p>KOREA</p>
+<p name="ex">Bithumb<input type='checkbox'><input type='hidden' value="Bithumb"></p>
+</div>
+<div>
+<h1>Max # of transactions:</h1>
+<p><input id='txNo' type='text' value='5'/></p>
+</div>
+
+<div>
+<h1># of items to print:</h1>
+<p><input id='itemNo' type='text' value='10'/></p>
+</div>
+
+<div>
+<h1>Arbitrage type</h1>
+<p>type1: <input type='radio' name='type' value='type1'/>
+description
+</p>
+<p>type2: <input type='radio' name='type' value='type1'/>
+description
+</p>
+</div>
 <div id='content'></div>
 <script language='javascript'>
 initialize();
 initializeCB();
 initializePN();
+
 readData();
 readDataCB();
 readDataPN();
+
+
+function submit() {
+	// initialize input data
+	gTxNo = parseInt(document.getElementById('txNo').value);
+	gCurList = {};
+	gExchangeList = new Array();
+
+	if (isNaN(gTxNo) || gTxNo > 5) {
+		alert('Max # of transaction must be number that\'s smaller than 5\n Number chosen: '+ gTxNo);
+		return;
+	}
+
+	var startCurList = document.getElementsByName('startCur');
+	
+	for (var i = 0; i<startCurList.length; i++) {
+		var cb = startCurList[i].lastChild;
+
+		if (cb.checked) {
+			gCurList[startCurList[i].firstChild.value] = startCurList[i].childNodes[2].value;
+		}
+	}
+
+	var exElemList = document.getElementsByName('ex');
+
+	for (var i = 0; i<exElemList.length; i++) {
+		//get checkbox and see if it's checked
+		var cb = exElemList[i].lastChild;
+		if (cb.checked) {
+			gExchangeList.push(exElemList[i].firstChild.value);
+		}
+	
+	}
+	//TODO: to read actual currency exchange on the fly
+	
+	var wonToDollar = parseInt(document.getElementById('wonToDollar').value);
+	if (isNaN(wonToDollar)) {
+		alert('invalid input - WON-DOLLAR')
+		return;
+	}
+	row['KRW'] = 
+	{
+		exchange: 'Bank',
+		tag: 'KRW',
+		index: 0,
+		price: 1/wonToDollar,
+		unit: 'USD',
+		reverse: true,
+		refs:[]
+	};
+	
+	markerTable.push({
+	stat: 0,
+	elem: row['KRW']
+	});
+
+
+	calc_perm_begin(markerTable);
+	printResult(document.getElementById('itemNo').value);
+}
 </script>
-<input value='get' type='button' onClick='javascript:calc_perm_begin(markerTable); printResult(resultList.length);'/>
+<input value='get' type='button' onClick='javascript:submit()'/>
 </body>
 </html>

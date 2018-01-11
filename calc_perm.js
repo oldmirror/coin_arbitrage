@@ -16,9 +16,9 @@ function printResult(n) {
 	var contentDiv = document.getElementById('content');
 
 	pStr = '';
-	for (var i =0; i<n; i++) {
+	for (var i =0; (i<n && i<resultList.length); i++) {
 		pStr += '<p>';
-		pStr += resultList[i].str +  ' ' + resultList[i].val;
+		pStr += resultList[i].str +  ' <b>Profit' + resultList[i].val + '</b>';
 		pStr += '</p>';
 	}
 	contentDiv.innerHTML += pStr;
@@ -31,25 +31,27 @@ var f = function condition(o) {
 
 function calc_perm() {
 
-	if (result.length > 5) return; //TODO
+	if (result.length > 5 ) return; //TODO
 
-	// All length permutation. Valid if it's draws cycle. Once cycle is found, terminate the search.
+	// All length permutation. Valid if it draws cycle. Once cycle is found, terminate the search.
 	if ((result.length > 0) && result[result.length-1].end == result[0].start) { 
 		if (result.length >= 3) { // only consider longer than 3 
-			// deep clone the result and store 
-			//resultArray.push(JSON.stringify(result));
 	
 			var e = new Object();
 			var listStr= '';
-			var price = 1;
+			var ratio= 1;
+			var amtCur = gCurList[result[0].start];
+			if (amtCur == undefined) alert('error');
+
 			for (var i = 0; i < result.length; i++) {
-				price /= result[i].price;
-				listStr += result[i].start + '(' + 1/result[i].price + ')' + ' -> ';
+				ratio /= result[i].price;
+				var temp = ' with ' + amtCur  + ' ' + result[i].start +' at ' + result[i].exchange;
+				listStr += 'Buy ' + (amtCur = amtCur * (1/result[i].price)) + ' of ' + result[i].end + temp + '<br/>'
 			}
 			
-			listStr += result[i-1].end;
+			//listStr += result[i-1].end;
 			e.str = listStr;
-			e.val = price;
+			e.val = (ratio -1) * 100 ;
 
 			resultList.push(e);
 		}
@@ -77,11 +79,13 @@ function calc_perm() {
 			rec.start = marker[nextIdx].elem.unit;
 			rec.end = marker[nextIdx].elem.tag;
 			rec.price = marker[nextIdx].elem.price;
+			rec.exchange = marker[nextIdx].elem.exchange;
 
 		} else if (marker[nextIdx].elem.reverse && (nextStat & 2) > 0) { // reverse case
 			rec.start = marker[nextIdx].elem.tag;
 			rec.end = marker[nextIdx].elem.unit;
 			rec.price = 1/marker[nextIdx].elem.price;
+			rec.exchange = marker[nextIdx].elem.exchange;
 
 		} else {
 			//TODO: handle invalid state
@@ -104,13 +108,20 @@ function nextElemAfter(idx, isTrue) {
 	for (; i< markerTable.length; i++) {
 
 		if ((marker[i].stat & 1) == 0 && (minor < 1)) { // regular not set
-			if ((result.length ==0) || result[result.length-1].end == marker[i].elem.unit) // link found
+			if (
+				(result.length ==0 && gCurList[marker[i].elem.unit] != undefined) // first one and found in cur list selected on UI.
+				|| (result.length != 0 &&result[result.length-1].end == marker[i].elem.unit)
+				) // link found
 				return i + 0.1;
 		}
 
 		if ((marker[i].stat & 2) == 0 && (minor < 2)) { // reverse not set
 			if (marker[i].elem.reverse 
-				&& ((result.length == 0) || result[result.length-1].end == marker[i].elem.tag)) // link found
+					&& (
+					(result.length == 0 && gCurList[marker[i].elem.tag] != undefined)
+					|| (result.length != 0 && result[result.length-1].end == marker[i].elem.tag)
+					)
+				) 
 				return i + 0.2;
 			
 		} 

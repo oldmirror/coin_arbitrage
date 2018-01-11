@@ -1,4 +1,4 @@
-var endpoint = 'https://api.coinbase.com/v2/prices/BTC-USD/buy';
+//var endpoint = 'https://api.coinbase.com/v2/prices/BTC-USD/buy';
 function initializeCB() {         
     
     exchangeList['Coinbase'] = new Object();
@@ -25,6 +25,7 @@ function readDataCB() {
 				row[k] = 
 				{
 					tag: k,
+					exchange: 'coinbase',
 					unit: 'USD',
 					reverse: true,
 					refs:[]
