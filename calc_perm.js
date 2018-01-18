@@ -18,7 +18,7 @@ function printResult(n) {
 	pStr = '';
 	for (var i =0; (i<n && i<resultList.length); i++) {
 		pStr += '<p>';
-		pStr += resultList[i].str +  ' <b>Profit' + resultList[i].val + '</b>';
+		pStr += resultList[i].str +  ' <b>Profit(%): ' + resultList[i].val + '</b>';
 		pStr += '</p>';
 	}
 	contentDiv.innerHTML += pStr;
@@ -84,7 +84,7 @@ function calc_perm() {
 		} else if (marker[nextIdx].elem.reverse && (nextStat & 2) > 0) { // reverse case
 			rec.start = marker[nextIdx].elem.tag;
 			rec.end = marker[nextIdx].elem.unit;
-			rec.price = 1/marker[nextIdx].elem.price;
+			rec.price = 1/marker[nextIdx].elem.reverse_price;
 			rec.exchange = marker[nextIdx].elem.exchange;
 
 		} else {
