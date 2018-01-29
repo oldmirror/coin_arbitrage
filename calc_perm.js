@@ -18,7 +18,7 @@ function printResult(n) {
 	pStr = '';
 	for (var i =0; (i<n && i<resultList.length); i++) {
 		pStr += '<p>';
-		pStr += resultList[i].str +  ' <b>Profit(%): ' + resultList[i].val + '</b>';
+		pStr += resultList[i].str +  ' <b>Profit(%): ' + resultList[i].val + ', Length: ' + resultList[i].length + '</b>';
 		pStr += '</p>';
 	}
 	contentDiv.innerHTML += pStr;
@@ -35,7 +35,7 @@ function calc_perm() {
 
 	// All length permutation. Valid if it draws cycle. Once cycle is found, terminate the search.
 	if ((result.length > 0) && result[result.length-1].end == result[0].start) { 
-		if (result.length >= 3) { // only consider longer than 3 
+		if (result.length >= 2) { // only consider longer than 3 
 	
 			var e = new Object();
 			var listStr= '';
@@ -43,7 +43,8 @@ function calc_perm() {
 			var amtCur = gCurList[result[0].start];
 			if (amtCur == undefined) alert('error');
 
-			for (var i = 0; i < result.length; i++) {
+			var i =0;
+			for (i = 0; i < result.length; i++) {
 				ratio /= result[i].price;
 				var temp = ' with ' + amtCur  + ' ' + result[i].start +' at ' + result[i].exchange;
 				listStr += 'Buy ' + (amtCur = amtCur * (1/result[i].price)) + ' of ' + result[i].end + temp + '<br/>'
@@ -51,6 +52,7 @@ function calc_perm() {
 			
 			//listStr += result[i-1].end;
 			e.str = listStr;
+			e.length= i-1;
 			e.val = (ratio -1) * 100 ;
 
 			resultList.push(e);
